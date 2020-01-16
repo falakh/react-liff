@@ -18,9 +18,9 @@ function EditCard() {
   const handleNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNote(event.target.value);
   };
+  liffHelper.init();
 
   if (!initilized) {
-    liffHelper.init();
     initApp();
   }
 
@@ -55,8 +55,8 @@ function NoteList(){
   var db = Firebase.database()
     .ref()
     .child("note");
-  var data = liffHelper.getProfile().then(proffile => {
-    var id = proffile.userId;
+    liffHelper.init();
+ liffHelper.getProfile().then(proffile => {
     console.log(proffile);
     db.child(proffile.userId).on('value',function(snapshoot){
       console.log(snapshoot)
