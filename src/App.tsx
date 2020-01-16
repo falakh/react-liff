@@ -20,7 +20,7 @@ function App() {
   };
 
   if (!initilized) {
-    // liffHelper.init();
+    liffHelper.init();
     initApp();
   }
 
