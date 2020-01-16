@@ -11,7 +11,7 @@ function App() {
   return <Container>
     <Card>
       <CardContent>
-        <Button onClick={liffHelper.init}> Login </Button>
+        <Button onClick={liffHelper.getProfile}> Login </Button>
       </CardContent>
     </Card>
   </Container>

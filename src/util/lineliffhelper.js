@@ -36,6 +36,7 @@ class liffHelper {
             liff.getProfile()
               .then(pf => {
                 profile = pf;
+                console.log(pf);
                 resolve(profile);
               })
               .catch((err) => {
