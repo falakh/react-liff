@@ -1,6 +1,5 @@
 const liff = window.liff;
 let isInit = false;
-let profile = {};
 let liffInfo = {};
 let myLiffId = "1653720179-oEZpz6gO"
 
@@ -29,7 +28,6 @@ class liffHelper {
         .then(() => {
             liff.getProfile()
               .then(pf => {
-                profile = pf;
                 console.log(pf)
                 resolve(pf);
               })

@@ -58,12 +58,17 @@ function NoteList(){
     liffHelper.init();
  liffHelper.getProfile().then(proffile => {
     console.log(proffile);
-    db.child(proffile.userId).on('value',function(snapshoot){
-      console.log(snapshoot.val())
-      setNoteItem(snapshoot.val())
-    }
-    )
+    db.child(proffile.userId).once('value',function(snapshoot){
+      var data : any[]  = [];
+        snapshoot.forEach((snapshoot)=>{
+            data.push(snapshoot.val());
+        })
+        setNoteItem(data)
+});
   });
+
+
+      
 
   if(!noteItem){
     return <Container></Container>
@@ -71,7 +76,7 @@ function NoteList(){
     var listItem = noteItem.map(function (item : any,index : number){
        return     <ListItem>
        <ListItemText>
-       <div>  item.note </div>
+       <div>  {item.note} </div>
        </ListItemText>
      </ListItem>
     })
