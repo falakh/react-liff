@@ -4,7 +4,6 @@ import liffHelper from '../src/util/lineliffhelper';
 import Firebase from "firebase";
 
 var initilized = false;
-var proffile : any= null;
 function App() {
   var [currentNote,setNote] = React.useState(String);
   const handleNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +17,7 @@ if(!initilized){
   return <Container>
     <Card>
       <CardContent>
-        <TextField  onChange={handleNoteChange}/>
+        <TextField  onChange={handleNoteChange} fullWidth/>
       </CardContent>
       <CardContent>
         <Button onClick={()=>AddNote(currentNote)}> Add Note </Button>
