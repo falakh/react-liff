@@ -55,10 +55,10 @@ function NoteList(){
   var db = Firebase.database()
     .ref()
     .child("note");
-  var profile = liffHelper.getProfile().then(proffile => {
+  var data = liffHelper.getProfile().then(proffile => {
     var id = proffile.userId;
-    console.log(profile);
-    db.child(id.toString()).on('value',function(snapshoot){
+    console.log(proffile);
+    db.child(proffile.userId).on('value',function(snapshoot){
       console.log(snapshoot)
       setNoteItem(snapshoot)
     }
