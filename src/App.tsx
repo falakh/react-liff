@@ -59,6 +59,7 @@ function NoteList(){
     var id = proffile.userId;
     console.log(profile);
     db.child(id.toString()).on('value',function(snapshoot){
+      console.log(snapshoot)
       setNoteItem(snapshoot)
     }
     )
