@@ -1,19 +1,19 @@
 import React from "react";
 import {
-  Container,
   Card,
   CardContent,
   TextField,
   Button,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Container
 } from "@material-ui/core";
 import liffHelper from "../src/util/lineliffhelper";
 import Firebase from "firebase";
 
 var initilized = false;
-function App() {
+function EditCard() {
   var [currentNote, setNote] = React.useState(String);
   const handleNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNote(event.target.value);
@@ -34,11 +34,18 @@ function App() {
           <Button onClick={() => AddNote(currentNote)}> Add Note </Button>
         </CardContent>
       </Card>
-      <List>
-      <NoteList/>
-      </List>
+     
     </Container>
   );
+}
+
+function App(){
+  return <Container>
+    <EditCard/>
+    <List>
+      <NoteList/>
+      </List>
+  </Container>
 }
 
 
