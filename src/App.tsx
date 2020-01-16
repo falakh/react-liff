@@ -32,7 +32,6 @@ function App() {
         </CardContent>
         <CardContent>
           <Button onClick={() => AddNote(currentNote)}> Add Note </Button>
-          <Button onClick={() => liffHelper.closeWindow()}> Logout </Button>
         </CardContent>
       </Card>
       <List>
