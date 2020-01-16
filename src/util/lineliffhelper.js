@@ -16,7 +16,7 @@ class liffHelper {
           console.log(liff)
           isInit = true;
           if (!liff.isLoggedIn()) {
-            liff.login();
+            liff.login({ redirectUri: "http://localhost:3000" });
           }
         })
         .catch((err) => {
@@ -36,7 +36,7 @@ class liffHelper {
             liff.getProfile()
               .then(pf => {
                 profile = pf;
-                console.log(pf);
+                console.log(pf)
                 resolve(profile);
               })
               .catch((err) => {

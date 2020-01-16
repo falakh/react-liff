@@ -1,21 +1,62 @@
 import React from "react";
 import { Container, Card, CardContent, TextField, Button } from "@material-ui/core";
 import liffHelper from '../src/util/lineliffhelper';
+import Firebase from "firebase";
 
-
+var initilized = false;
+var proffile : any= null;
 function App() {
-  var [profile,setProffile] = React.useState<any>();
-
+  var [currentNote,setNote] = React.useState(String);
+  const handleNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNote(event.target.value);
+  };
   liffHelper.init()
+if(!initilized){
+  initApp()
+}
 
   return <Container>
     <Card>
       <CardContent>
-        <Button onClick={liffHelper.getProfile}> Login </Button>
+        <TextField  onChange={handleNoteChange}/>
+      </CardContent>
+      <CardContent>
+        <Button onClick={()=>AddNote(currentNote)}> Add Note </Button>
       </CardContent>
     </Card>
   </Container>
 }
 
+function initApp(){
+  var firebaseConfig = {
+    apiKey: "AIzaSyB9BW4nyLKdZJsoBhCyJqq4kPW2DJ63lwM",
+    authDomain: "chat-app-16877.firebaseapp.com",
+    databaseURL: "https://chat-app-16877.firebaseio.com",
+    projectId: "chat-app-16877",
+    storageBucket: "chat-app-16877.appspot.com",
+    messagingSenderId: "561022543563",
+    appId: "1:561022543563:web:0cd5700ff682e5cdbb5d4e",
+    measurementId: "G-04TWBFWGHL"
+  };
+initilized=true;
+  Firebase.initializeApp(firebaseConfig)
+}
+
+
+
+declare type empetyCallback = () => void;
+async function AddNote(note : String){
+   var db = Firebase.database().ref().child('note')
+   var newPostKey =db.push().key;
+  //  var id = 1;
+  var updates = {};
+  var profile = await liffHelper.getProfile();
+  var id = proffile.userId;
+  console.log(profile);
+  db.child(id.toString()+"/"+newPostKey).set({
+    note
+  })
+  // return Firebase.database().ref().update({"/"+});
+}
 
 export default App;
