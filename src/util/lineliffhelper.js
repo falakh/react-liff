@@ -22,6 +22,7 @@ class liffHelper {
     await this.init()
     if(!liff.isLoggedIn()){
       await liff.login()
+      isInit = true;
     }
     return new Promise((resolve, reject) => {
       this.init()
