@@ -57,10 +57,9 @@ function NoteList(){
     )
   });
 
-  if(noteItem){
+  if(!noteItem){
     return <Container></Container>
   }else{
-    var data =[];
     var listItem = noteItem.map(function (item : any,index : number){
        return     <ListItem>
        <ListItemText>
