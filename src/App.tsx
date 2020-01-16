@@ -50,12 +50,14 @@ async function AddNote(note : String){
    var newPostKey =db.push().key;
   //  var id = 1;
   var updates = {};
-  var profile = await liffHelper.getProfile();
-  var id = proffile.userId;
-  console.log(profile);
-  db.child(id.toString()+"/"+newPostKey).set({
-    note
-  })
+  var profile =  liffHelper.getProfile().then((proffile)=>{
+    var id = proffile.userId;
+    console.log(profile);
+    db.child(id.toString()+"/"+newPostKey).set({
+      note
+    })
+  });
+ 
   // return Firebase.database().ref().update({"/"+});
 }
 
