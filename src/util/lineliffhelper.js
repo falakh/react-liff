@@ -27,21 +27,17 @@ class liffHelper {
     return new Promise((resolve, reject) => {
       this.init()
         .then(() => {
-         
-          if (isInit && !profile.userId) {
             liff.getProfile()
               .then(pf => {
                 profile = pf;
                 console.log(pf)
-                resolve(profile);
+                resolve(pf);
               })
               .catch((err) => {
                 console.log('get profile error', err);
                 reject(err);
               });
-          } else {
-            resolve(profile)
-          }
+         
         })
         .catch(err => { reject(err) });
     });
