@@ -7,20 +7,21 @@ let myLiffId = "1653720179-oEZpz6gO"
 
 class liffHelper {
   init() {
-        liff
-        .init({
-            liffId: myLiffId
-        })
-        .then(() => {
-          console.log("siap gan")
-          console.log(liff)
-          isInit = true;
-          if (!liff.isLoggedIn()) {
-            liff.login({ redirectUri: "http://localhost:3000" });
-          }
-        })
-        .catch((err) => {
-        });
+    return liff
+      .init({
+        liffId: myLiffId
+      })
+      .then(() => {
+        console.log("siap gan")
+        console.log(liff)
+        isInit = true;
+        if (!liff.isLoggedIn()) {
+          liff.login({ redirectUri: "https://linenote.herokuapp.com/" });
+        }
+      })
+      .catch((err) => {
+
+      });
   }
 
 
@@ -30,24 +31,20 @@ class liffHelper {
 
   getProfile() {
     return new Promise((resolve, reject) => {
-      this.init()
-        .then(() => {
-          if (isInit && !profile.userId) {
-            liff.getProfile()
-              .then(pf => {
-                profile = pf;
-                console.log(pf)
-                resolve(profile);
-              })
-              .catch((err) => {
-                console.log('get profile error', err);
-                reject(err);
-              });
-          } else {
-            resolve(profile)
-          }
-        })
-        .catch(err => { reject(err) });
+      if (isInit && !profile.userId) {
+        liff.getProfile()
+          .then(pf => {
+            profile = pf;
+            console.log(pf)
+            resolve(profile);
+          })
+          .catch((err) => {
+            console.log('get profile error', err);
+            reject(err);
+          });
+      } else {
+        resolve(profile)
+      }
     });
   }
 
