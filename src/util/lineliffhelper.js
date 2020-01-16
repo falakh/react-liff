@@ -59,8 +59,6 @@ class liffHelper {
   sendMessages(messages) {
     const messagesToSend = Array.isArray(messages) ? messages : [messages];
     return new Promise((resolve, reject) => {
-      this.init()
-        .then(() => {
           liff.sendMessages(messagesToSend)
             .then(() => {
               resolve();
@@ -69,10 +67,6 @@ class liffHelper {
               reject(err);
             });
         })
-        .catch((err) => {
-          reject(err);
-        });
-    });
   }
 };
 export default new liffHelper();

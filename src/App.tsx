@@ -1,32 +1,81 @@
 import React from "react";
-import { Container, Card, CardContent, TextField, Button } from "@material-ui/core";
-import liffHelper from '../src/util/lineliffhelper';
+import {
+  Container,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  List,
+  ListItem,
+  ListItemText
+} from "@material-ui/core";
+import liffHelper from "../src/util/lineliffhelper";
 import Firebase from "firebase";
 
 var initilized = false;
 function App() {
-  var [currentNote,setNote] = React.useState(String);
+  var [currentNote, setNote] = React.useState(String);
   const handleNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNote(event.target.value);
   };
-  liffHelper.init()
-if(!initilized){
-  initApp()
+
+  if (!initilized) {
+    // liffHelper.init();
+    initApp();
+  }
+
+  return (
+    <Container>
+      <Card>
+        <CardContent>
+          <TextField onChange={handleNoteChange} fullWidth />
+        </CardContent>
+        <CardContent>
+          <Button onClick={() => AddNote(currentNote)}> Add Note </Button>
+          <Button onClick={() => liffHelper.closeWindow()}> Logout </Button>
+        </CardContent>
+      </Card>
+      <List>
+      <NoteList/>
+      </List>
+    </Container>
+  );
 }
 
-  return <Container>
-    <Card>
-      <CardContent>
-        <TextField  onChange={handleNoteChange} fullWidth/>
-      </CardContent>
-      <CardContent>
-        <Button onClick={()=>AddNote(currentNote)}> Add Note </Button>
-      </CardContent>
-    </Card>
-  </Container>
+
+function NoteList(){
+  var [noteItem, setNoteItem] = React.useState<any>()
+
+  var db = Firebase.database()
+    .ref()
+    .child("note");
+  var profile = liffHelper.getProfile().then(proffile => {
+    var id = proffile.userId;
+    console.log(profile);
+    db.child(id.toString()).on('value',function(snapshoot){
+      setNoteItem(snapshoot)
+    }
+    )
+  });
+
+  if(noteItem){
+    return <Container></Container>
+  }else{
+    var data =[];
+    var listItem = noteItem.map(function (item : any,index : number){
+       return     <ListItem>
+       <ListItemText>
+       <div>  item.note </div>
+       </ListItemText>
+     </ListItem>
+    })
+    return listItem;
+  }
+
+
 }
 
-function initApp(){
+function initApp() {
   var firebaseConfig = {
     apiKey: "AIzaSyB9BW4nyLKdZJsoBhCyJqq4kPW2DJ63lwM",
     authDomain: "chat-app-16877.firebaseapp.com",
@@ -37,26 +86,25 @@ function initApp(){
     appId: "1:561022543563:web:0cd5700ff682e5cdbb5d4e",
     measurementId: "G-04TWBFWGHL"
   };
-initilized=true;
-  Firebase.initializeApp(firebaseConfig)
+  initilized = true;
+  Firebase.initializeApp(firebaseConfig);
 }
 
-
-
 declare type empetyCallback = () => void;
-async function AddNote(note : String){
-   var db = Firebase.database().ref().child('note')
-   var newPostKey =db.push().key;
+async function AddNote(note: String) {
+  var db = Firebase.database()
+    .ref()
+    .child("note");
+  var newPostKey = db.push().key;
   //  var id = 1;
-  var updates = {};
-  var profile =  liffHelper.getProfile().then((proffile)=>{
+  var profile = liffHelper.getProfile().then(proffile => {
     var id = proffile.userId;
     console.log(profile);
-    db.child(id.toString()+"/"+newPostKey).set({
+    db.child(id.toString() + "/" + newPostKey).set({
       note
-    })
+    });
   });
- 
+
   // return Firebase.database().ref().update({"/"+});
 }
 
