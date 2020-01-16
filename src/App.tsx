@@ -59,8 +59,8 @@ function NoteList(){
  liffHelper.getProfile().then(proffile => {
     console.log(proffile);
     db.child(proffile.userId).on('value',function(snapshoot){
-      console.log(snapshoot.val)
-      setNoteItem(snapshoot.val)
+      console.log(snapshoot.val())
+      setNoteItem(snapshoot.val())
     }
     )
   });
