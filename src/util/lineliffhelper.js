@@ -16,7 +16,7 @@ class liffHelper {
           console.log(liff)
           isInit = true;
           if (!liff.isLoggedIn()) {
-            liff.login({ redirectUri: "https://localhost:3000" });
+            liff.login();
           }
         })
         .catch((err) => {
